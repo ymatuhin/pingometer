@@ -1,22 +1,19 @@
 {
-  "name": "electron-quick-start",
+  "name": "ping",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager . 'Ping ping ping' --icon './logo.icns' --overwrite"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "license": "MIT",
   "devDependencies": {
-    "electron": "^13.1.7"
+    "electron": "^13.1.8",
+    "electron-packager": "^15.3.0"
+  },
+  "dependencies": {
+    "electron-prompt": "^1.6.2",
+    "ping": "^0.4.1"
   }
 }
