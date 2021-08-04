@@ -5,15 +5,17 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "rebuild": "electron-rebuild",
     "build": "electron-packager . 'Ping ping ping' --icon './logo.icns' --overwrite"
   },
   "license": "MIT",
   "devDependencies": {
     "electron": "^13.1.8",
-    "electron-packager": "^15.3.0"
+    "electron-packager": "^15.3.0",
+    "electron-rebuild": "^2.3.5"
   },
   "dependencies": {
     "electron-prompt": "^1.6.2",
-    "ping": "^0.4.1"
+    "net-ping": "^1.2.3"
   }
 }
