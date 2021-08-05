@@ -37,7 +37,7 @@ let results = [];
 
 async function runPing(callback) {
   const result = await ping();
-  results = [result, ...results].slice(0, 20);
+  results.push(result);
   if (callback) callback();
   setTimeout(runPing, 100);
 }
@@ -56,6 +56,7 @@ function runDisplay() {
     tray.setTitle(`${lostStr}${avg}ms Δ${delta}ms`);
   }
 
+  results = [];
   setTimeout(runDisplay, 2000);
 }
 

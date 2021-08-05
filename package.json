@@ -15,7 +15,6 @@
     "electron-rebuild": "^2.3.5"
   },
   "dependencies": {
-    "electron-prompt": "^1.6.2",
     "net-ping": "^1.2.3"
   }
 }
