@@ -1,6 +1,8 @@
 // Modules to control application life and create native browser window
 const { app, Tray, Menu, nativeImage } = require("electron");
-var netPing = require("net-ping");
+app.dock.hide();
+
+const netPing = require("net-ping");
 const fs = require("fs");
 
 let tray = null;
@@ -10,7 +12,7 @@ let url = getPingUrl();
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  if (app.dock) app.dock.hide();
+  // if (app.dock) app.dock.hide();
 
   const icon = nativeImage.createFromPath("./transparent.png");
   tray = new Tray(icon);
@@ -65,8 +67,7 @@ function runDisplay() {
 function getPingUrl() {
   try {
     if (fs.existsSync(path)) {
-      const url = fs.readFileSync("~/.ping-ping-ping") || "1.1.1.1";
-      return url;
+      return fs.readFileSync("~/.ping-ping-ping") || "1.1.1.1";
     }
   } catch (err) {
     return "1.1.1.1";
@@ -76,6 +77,8 @@ function getPingUrl() {
 const session = netPing.createSession({ packetSize: 64 });
 function ping() {
   return new Promise((resolve) => {
-    session.pingHost(url, (error, _, sent, rcvd) => resolve(error ? null : rcvd - sent));
+    session.pingHost(url, (error, _, sent, rcvd) => {
+      resolve(error ? null : rcvd - sent || null);
+    });
   });
 }
