@@ -44,16 +44,18 @@ async function runPing(callback) {
 
 function runDisplay() {
   const lost = results.filter((result) => result === null).length;
+  const lostPercent = Math.round((lost / results.length) * 100);
   const safeResults = results.filter(Number.isInteger);
   const sum = safeResults.reduce((a, b) => a + b, 0);
   const avg = Math.round(sum / safeResults.length);
-  const delta = Math.round(Math.max(...safeResults) - Math.min(...safeResults) / 2);
+  const delta = Math.round((Math.max(...safeResults) - Math.min(...safeResults)) / 2);
 
-  if (lost) {
+  if (lostPercent === 100) {
     tray.setTitle("offline");
   } else {
-    const lostStr = lost > 0 ? `${lost}% ` : "";
-    tray.setTitle(`${lostStr}${avg}ms Δ${delta}ms`);
+    const lostStr = lostPercent > 0 ? `${lostPercent}% ` : "";
+    const deltaStr = delta > 0 ? ` Δ${delta}ms` : "";
+    tray.setTitle(`${lostStr}${avg}ms${deltaStr}`);
   }
 
   results = [];
