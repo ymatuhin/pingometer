@@ -1,9 +1,9 @@
 // Modules to control application life and create native browser window
 const { app, Tray, Menu, nativeImage } = require("electron");
-app.dock.hide();
-
 const netPing = require("net-ping");
 const fs = require("fs");
+
+app.dock.hide();
 
 let tray = null;
 let url = getPingUrl();
@@ -45,16 +45,18 @@ async function runPing(callback) {
 }
 
 function runDisplay() {
+  const noResults = results.length === 0;
   const lost = results.filter((result) => result === null).length;
   const lostPercent = Math.round((lost / results.length) * 100);
-  const safeResults = results.filter(Number.isInteger);
-  const sum = safeResults.reduce((a, b) => a + b, 0);
-  const avg = Math.round(sum / safeResults.length);
-  const delta = Math.round((Math.max(...safeResults) - Math.min(...safeResults)) / 2);
+  const isOffline = noResults || lostPercent === 100;
 
-  if (lostPercent === 100) {
+  if (isOffline) {
     tray.setTitle("offline");
   } else {
+    const safeResults = results.filter(Number.isInteger);
+    const sum = safeResults.reduce((a, b) => a + b, 0);
+    const avg = Math.round(sum / safeResults.length);
+    const delta = Math.round((Math.max(...safeResults) - Math.min(...safeResults)) / 2);
     const lostStr = lostPercent > 0 ? `${lostPercent}% ` : "";
     const deltaStr = delta > 0 ? ` Δ${delta}ms` : "";
     tray.setTitle(`${lostStr}${avg}ms${deltaStr}`);
@@ -74,7 +76,7 @@ function getPingUrl() {
   }
 }
 
-const session = netPing.createSession({ packetSize: 64 });
+const session = netPing.createSession({ packetSize: 64, timeout: 1000 });
 function ping() {
   return new Promise((resolve) => {
     session.pingHost(url, (error, _, sent, rcvd) => {
