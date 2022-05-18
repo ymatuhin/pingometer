@@ -1,7 +1,6 @@
-<img alt="Pinger App logo for macOS" src="https://github.com/ymatuhin/pinger/blob/master/logo.png?raw=true" width="128" height="128" />
-
 # Pinger
 
+<img alt="Pinger App logo for macOS" src="https://github.com/ymatuhin/pinger/blob/master/logo.png?raw=true" width="128" height="128" /> 
 MacOS app for "pinging" most popular dns servers. It shows the avarage ping (latency), the difference between the minimum and maximum ping and percentage of lost packets. It's written using electron, so it has a rather large size.
 
 Personally, I have this app running all the time, because I want to know if there is a problem with my internet connection when I use my computer.
