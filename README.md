@@ -1,7 +1,19 @@
-# Ping ping ping
+# Pinger
 
-MacOS app for displaying in tray current ping to 1.1.1.1. It shows avarage ping and delta between min and max ping and percent of lost packages.
+MacOS app for "pinging" most popular dns servers. It shows the avarage ping, the difference between the minimum and maximum ping and percentage of lost packets. It's written using electron, so it has a rather large size.
 
-<img width="121" alt="Screenshot 2021-08-06 at 14 45 21" src="https://user-images.githubusercontent.com/3757971/128505758-f2a83f1b-8bfe-4929-965b-61433b9e6c7c.png">
+Personally, I have this app running all the time, because I want to know if there is a problem with my internet connection when I use my computer.
 
-See [last release](https://github.com/ymatuhin/ping-ping-ping/releases/latest) for download.
+If you wanna check it out, you may [download](https://github.com/ymatuhin/ping-ping-ping/releases/latest) last release.
+
+## Preview
+
+Only pinger  
+![Pinger example 1](https://github.com/ymatuhin/pinger/blob/master/example.png?raw=true)
+
+With surroundings  
+![Pinger example](https://github.com/ymatuhin/pinger/blob/master/example2.png?raw=true)
+
+## Contribute
+
+Because there is an electron under the hood, there is a possibility to build this app for Linux and Windows. But I have no access to those systems, so your pull requests are very welcome.
