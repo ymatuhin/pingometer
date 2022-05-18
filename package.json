@@ -1,20 +1,22 @@
 {
   "name": "ping",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "rebuild": "electron-rebuild",
-    "build": "electron-packager . 'Ping ping ping' --icon './logo.icns' --overwrite"
+    "build": "electron-packager . 'Pinger' --icon './logo.icns' --overwrite"
   },
   "license": "MIT",
   "devDependencies": {
-    "electron": "^13.1.8",
-    "electron-packager": "^15.3.0",
-    "electron-rebuild": "^2.3.5"
+    "electron": "^18.2.3",
+    "electron-packager": "^15.5.1",
+    "electron-rebuild": "^3.2.7"
   },
   "dependencies": {
-    "net-ping": "^1.2.3"
+    "icmp": "^2.0.1",
+    "tcp-ping": "^0.1.1",
+    "url-exist": "^3.0.0"
   }
 }
