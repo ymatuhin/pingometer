@@ -97,6 +97,6 @@ let _avgTitleLengthStore = [];
 function getAvgTitleLength(title) {
   const maxValues = RENDER_INTERVAL * 30;
   _avgTitleLengthStore = _avgTitleLengthStore.slice(0, maxValues);
-  _avgTitleLengthStore.push(title.length);
+  _avgTitleLengthStore.unshift(title.length);
   return getAvgFromValues(_avgTitleLengthStore);
 }
