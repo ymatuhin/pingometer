@@ -46,7 +46,7 @@ function display(store, tray) {
     tray.setTitle("offline", trayParams);
   } else {
     const title = getTrayTitle(store, values);
-    const padSize = getAvgTitleLength(title) + 2; // +2 for outlier
+    const padSize = getAvgTitleLength(title) + 1; // +2 for outlier
     tray.setTitle(title.padEnd(padSize), trayParams);
   }
 }
@@ -97,6 +97,6 @@ let _avgTitleLengthStore = [];
 function getAvgTitleLength(title) {
   const maxValues = RENDER_INTERVAL * 30;
   _avgTitleLengthStore = _avgTitleLengthStore.slice(0, maxValues);
-  _avgTitleLengthStore.push(title.length);
+  _avgTitleLengthStore.unshift(title.length);
   return getAvgFromValues(_avgTitleLengthStore);
 }
