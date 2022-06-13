@@ -7,7 +7,7 @@
   "scripts": {
     "start": "electron .",
     "rebuild": "electron-rebuild",
-    "build": "npm run pack && npm run dmg",
+    "build": "npm run pack",
     "pack": "rm -rf dist && electron-packager . 'Pingometer' --icon './src/logo.icns' --overwrite --ignore='node_modules' && mv ./Pingometer-darwin-x64 ./dist",
     "dmg": "electron-installer-dmg ./dist/Pingometer.app Pingometer --out=dist --icon=src/logo.icns --background=src/bg.png"
   },
