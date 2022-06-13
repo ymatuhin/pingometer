@@ -1,22 +1,24 @@
 {
-  "name": "ping",
-  "version": "1.1.1",
+  "name": "pingometer",
+  "version": "1.1.2",
   "description": "",
-  "main": "main.js",
+  "author": "ymatuhin",
+  "main": "./src/main.js",
   "scripts": {
     "start": "electron .",
     "rebuild": "electron-rebuild",
-    "build": "electron-packager . 'Pinger' --icon './logo.icns' --overwrite"
+    "build": "npm run pack && npm run dmg",
+    "pack": "rm -rf dist && electron-packager . 'Pingometer' --icon './src/logo.icns' --overwrite --ignore='node_modules' && mv ./Pingometer-darwin-x64 ./dist",
+    "dmg": "electron-installer-dmg ./dist/Pingometer.app Pingometer --out=dist --icon=src/logo.icns --background=src/bg.png"
   },
   "license": "MIT",
   "devDependencies": {
-    "electron": "^18.2.3",
+    "electron": "^19.0.4",
+    "electron-installer-dmg": "^4.0.0",
     "electron-packager": "^15.5.1",
     "electron-rebuild": "^3.2.7"
   },
   "dependencies": {
-    "icmp": "^2.0.1",
-    "tcp-ping": "^0.1.1",
-    "url-exist": "^3.0.0"
+    "tcp-ping": "^0.1.1"
   }
 }

@@ -5,7 +5,7 @@ app.dock.hide();
 app.whenReady().then(initAppStuff);
 
 async function initAppStuff() {
-  let tray = new Tray(nativeImage.createEmpty());
+  const tray = new Tray(nativeImage.createEmpty());
   tray.setTitle("∞");
 
   const contextMenu = Menu.buildFromTemplate([{ role: "quit" }]);
