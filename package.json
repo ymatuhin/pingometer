@@ -7,9 +7,10 @@
   "scripts": {
     "start": "electron .",
     "rebuild": "electron-rebuild",
-    "build": "npm run pack",
-    "pack": "rm -rf dist && electron-packager . 'Pingometer' --icon './src/logo.icns' --overwrite --ignore='node_modules' && mv ./Pingometer-darwin-x64 ./dist",
-    "dmg": "electron-installer-dmg ./dist/Pingometer.app Pingometer --out=dist --icon=src/logo.icns --background=src/bg.png"
+    "build": "npm run pack && npm run dmg && npm run zip",
+    "pack": "rm -rf dist && electron-packager . 'Pingometer' --icon './src/logo.icns' --overwrite && mv ./Pingometer-darwin-x64 ./dist",
+    "dmg": "electron-installer-dmg ./dist/Pingometer.app Pingometer --out=dist --icon=src/logo.icns --background=src/bg.png",
+    "zip": " zip -r -y ./dist/Pingometer.zip ./dist/Pingometer.app"
   },
   "license": "MIT",
   "devDependencies": {
