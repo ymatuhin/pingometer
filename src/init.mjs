@@ -8,7 +8,7 @@ const RENDER_INTERVAL = 1000;
 const ONE_IP_REQUESTS_PER_RENDER = 2;
 const PING_PARAMS = {
   port: 53, // DNS (domain name server) lookup
-  timeout: RENDER_INTERVAL - 50,
+  timeout: RENDER_INTERVAL - 100,
   attempts: 1,
 };
 
@@ -57,7 +57,7 @@ function getTrayTitle(store, values) {
   const avgStr = isAvgBig ? "1k+" : `${avg}ms`;
 
   const delta = getDelta(store);
-  const deltaStr = isAvgBig || delta <= 1 ? "" : ` Δ${delta}ms`;
+  const deltaStr = isAvgBig || delta <= 2 ? "" : ` Δ${delta}ms`;
 
   const lostPercent = getLostPercent(values);
   const lostStr = lostPercent > 0 ? `${lostPercent}% ` : "";
