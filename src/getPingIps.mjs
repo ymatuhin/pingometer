@@ -10,7 +10,7 @@ const HOSTS = [
   "9.9.9.9", // quad9
 ];
 
-export async function getDnsIps(port) {
+export async function getPingIps(port) {
   const promises = HOSTS.map((ip) => probe(ip, port));
   const results = await Promise.allSettled(promises);
   return results

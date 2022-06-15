@@ -1,11 +1,11 @@
 import { promisify } from "node:util";
 import tcpPingModule from "tcp-ping";
-import { getDnsIps } from "./getDnsIps.mjs";
+import { getPingIps } from "./getPingIps.mjs";
 
 const tcpPing = promisify(tcpPingModule.ping);
 
 const RENDER_INTERVAL = 1000;
-const ONE_IP_REQUESTS_PER_RENDER = 2;
+const ONE_IP_REQUESTS_PER_RENDER = 3;
 const PING_PARAMS = {
   port: 53, // DNS (domain name server) lookup
   timeout: RENDER_INTERVAL - 100,
@@ -13,9 +13,10 @@ const PING_PARAMS = {
 };
 
 export async function init(tray) {
-  const ips = await getDnsIps(PING_PARAMS.port);
+  const ips = await getPingIps(PING_PARAMS.port);
 
-  let store = {};
+  // Ex. "1.1.1.1": [54, null, 53]
+  const store = {};
   ips.forEach((ip) => (store[ip] = []));
 
   let counter = 0;
@@ -24,12 +25,12 @@ export async function init(tray) {
     const pingData = await tcpPing({ ...PING_PARAMS, address: ip });
     const avg = pingData.avg ? Math.round(pingData.avg) : null;
     store[ip].unshift(avg);
-  }, RENDER_INTERVAL / (ONE_IP_REQUESTS_PER_RENDER * ips.length));
+  }, PING_PARAMS.timeout / (ONE_IP_REQUESTS_PER_RENDER * ips.length));
 
   setInterval(() => {
     const values = Object.values(store);
     values.forEach((valuesArr) => {
-      const keepCount = Math.round(ONE_IP_REQUESTS_PER_RENDER * 1.5);
+      const keepCount = ONE_IP_REQUESTS_PER_RENDER * 2;
       if (valuesArr.length > keepCount) valuesArr.length = keepCount;
     });
     display(store, tray);
@@ -37,7 +38,6 @@ export async function init(tray) {
 }
 
 function display(store, tray) {
-  console.info(`🔥 store`, store);
   const trayParams = { fontType: "monospaced" }; // for padStart/padEnd
   const values = Object.values(store).flat();
   const isOffline = getIsOffline(values);
@@ -46,18 +46,18 @@ function display(store, tray) {
     tray.setTitle("offline", trayParams);
   } else {
     const title = getTrayTitle(store, values);
-    const padSize = getAvgTitleLength(title) + 1; // +2 for outlier
+    const padSize = getAvgTitleLength(title);
     tray.setTitle(title.padEnd(padSize), trayParams);
   }
 }
 
 function getTrayTitle(store, values) {
-  const avg = getAvgFromValues(values);
+  const avg = getAvgFromValues(values) || 1; // show at least 1ms
   const isAvgBig = avg > 999;
   const avgStr = isAvgBig ? "1k+" : `${avg}ms`;
 
   const delta = getDelta(store);
-  const deltaStr = isAvgBig || delta <= 2 ? "" : ` Δ${delta}ms`;
+  const deltaStr = isAvgBig || delta <= 1 ? "" : ` Δ${delta}ms`;
 
   const lostPercent = getLostPercent(values);
   const lostStr = lostPercent > 0 ? `${lostPercent}% ` : "";
@@ -88,9 +88,9 @@ function getDeltaFromValues(values) {
   return Math.floor((max - min) / 2);
 }
 
-function getAvgFromValues(values) {
+function getAvgFromValues(values, rounding = "round") {
   const sum = values.reduce((a, b) => a + b, 0);
-  return Math.ceil(sum / values.length);
+  return Math[rounding](sum / values.length);
 }
 
 let _avgTitleLengthStore = [];
@@ -98,5 +98,5 @@ function getAvgTitleLength(title) {
   const maxValues = RENDER_INTERVAL * 30;
   _avgTitleLengthStore = _avgTitleLengthStore.slice(0, maxValues);
   _avgTitleLengthStore.unshift(title.length);
-  return getAvgFromValues(_avgTitleLengthStore);
+  return getAvgFromValues(_avgTitleLengthStore, "ceil");
 }
