@@ -1,7 +1,7 @@
 # Pingometer
 
 <img alt="Pingometer App logo for macOS" src="https://github.com/ymatuhin/Pingometer/blob/master/src/logo.png?raw=true" width="128" height="128" /> 
-MacOS app for "pinging" most popular dns servers. It shows the avarage ping (latency), the difference between the minimum and maximum ping and percentage of lost packets. It's written using electron, so it has a rather large size.
+MacOS app for "pinging" popular DNS servers. It shows the avarage ping (latency), the difference between the minimum and maximum ping and percentage of lost packets. 
 
 Personally, I have this app running all the time, because I want to know if there is a problem with my internet connection when I use my computer.
 
@@ -17,4 +17,4 @@ With surroundings
 
 ## Contribute
 
-Because there is an electron under the hood, there is a possibility to build this app for Linux and Windows. But I have no access to those systems, so your pull requests are very welcome.
+It uses electron under the hood, so it's not so small as could be. If you'd like to reduce the size or completle rewire it on anoter platform you're welcome. Also because is's an electron, there is a possibility to build this app for Linux and Windows. I have no access to those systems, so your pull requests are very welcome.
