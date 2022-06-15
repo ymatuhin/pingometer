@@ -57,7 +57,7 @@ function getTrayTitle(store, values) {
   const avgStr = isAvgBig ? "1k+" : `${avg}ms`;
 
   const delta = getDelta(store);
-  const deltaStr = isAvgBig || delta === 0 ? "" : ` Δ${delta}ms`;
+  const deltaStr = isAvgBig || delta <= 1 ? "" : ` Δ${delta}ms`;
 
   const lostPercent = getLostPercent(values);
   const lostStr = lostPercent > 0 ? `${lostPercent}% ` : "";
@@ -85,12 +85,12 @@ function getDelta(store) {
 function getDeltaFromValues(values) {
   const min = Math.min(...values);
   const max = Math.max(...values);
-  return Math.round((max - min) / 2);
+  return Math.floor((max - min) / 2);
 }
 
 function getAvgFromValues(values) {
   const sum = values.reduce((a, b) => a + b, 0);
-  return Math.round(sum / values.length);
+  return Math.ceil(sum / values.length);
 }
 
 let _avgTitleLengthStore = [];
