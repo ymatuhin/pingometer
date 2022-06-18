@@ -95,8 +95,8 @@ function getAvgFromValues(values, rounding = "round") {
 
 let _avgTitleLengthStore = [];
 function getAvgTitleLength(title) {
-  const maxValues = RENDER_INTERVAL * 30;
-  _avgTitleLengthStore = _avgTitleLengthStore.slice(0, maxValues);
-  _avgTitleLengthStore.unshift(title.length);
+  const maxValues = 10;
+  _avgTitleLengthStore = _avgTitleLengthStore.slice(-maxValues);
+  _avgTitleLengthStore.push(title.length);
   return getAvgFromValues(_avgTitleLengthStore, "ceil");
 }
