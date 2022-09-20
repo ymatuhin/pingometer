@@ -1,6 +1,6 @@
 {
   "name": "pingometer",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "",
   "author": "ymatuhin",
   "main": "./src/main.js",
