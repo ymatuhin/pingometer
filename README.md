@@ -1,6 +1,6 @@
 # Pingometer
 
-<img alt="Pingometer App logo for macOS" src="https://raw.githubusercontent.com/ymatuhin/pingometer/main/logo.png" width="128" height="128" /> 
+<img alt="Pingometer App logo for macOS" src="https://raw.githubusercontent.com/ymatuhin/pingometer/main/src/logo.png" width="128" height="128" /> 
 MacOS app for "pinging" popular DNS servers. It shows the avarage ping (latency), the difference between the minimum and maximum ping and percentage of lost packets. 
 
 Personally, I have this app running all the time, because I want to know if there is a problem with my internet connection when I use my computer.
